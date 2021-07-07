@@ -1,0 +1,13 @@
+{
+  "hosting": {
+  	// Drops `.html` from uploaded URLs
+  "cleanUrls": true,
+    "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ]
+  }
+}
+

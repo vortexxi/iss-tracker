@@ -1,0 +1,268 @@
+@font-face {
+    font-family: 'nb_architektregular';
+    src: url('media/nb-architekt-regular-webfont.woff2') format('woff2'),
+         url('media/nb-architekt-regular-webfont.woff') format('woff'),
+         url("media/NB-Architekt-Regular.otf") format("otf");
+    font-weight: normal;
+    font-style: normal;
+
+}
+* {
+    box-sizing: border-box;
+    padding: 0px;
+    margin: 0px;
+    font-family: 'nb_architektregular';
+    font-style: normal;
+    font-weight: normal;
+}
+html {
+    height: 100%;
+    /*background-color: #1d292c;*/
+    
+}
+
+
+body {
+    margin: 0;
+    height: 100%;
+    background-color: #000;
+    position: relative;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    background-image: url('media/space-background.jpg');
+    background-position: center; /* Center the image */
+    background-size: cover;
+}
+
+
+.earth-image{
+    background-image:url('media/earth-cut.png');
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    padding: 0px;
+    margin: 0px;
+    width: 640px;
+    height: 673px;
+}
+.iss-image{
+    background-image: url('media/iss-desktop.png');
+    background-repeat: no-repeat;
+    position: absolute;
+    top:50%;
+    left:5%;
+    padding: 0px;
+    margin: 0px;
+    width: 540px;
+    height: 370px;
+}
+
+
+/*http://svgicons.sparkk.fr/*/
+
+.svg-icon {
+  width: 2em;
+  height: 2em;
+}
+
+.svg-icon path,
+.svg-icon polygon,
+.svg-icon rect {
+  fill: #FFF;
+}
+
+.svg-icon circle {
+  stroke: #FFF;
+  stroke-width: 1;
+}
+
+.icon{
+    position:absolute;
+    top:0%;
+    left:0%;
+    margin:10px;
+    padding:7px;
+    color:#FFF;
+    z-index: 15;
+}
+.icon img {
+    color:#FFF;
+}
+.hero{
+    position: absolute;
+    padding:10px;
+    bottom:0%;
+    right:0%;
+    margin:20px;
+    /*background-color: rgba(0, 0, 0, 0.2);*/
+    /*box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);*/
+    z-index: 10;
+    text-align: right;
+}
+.hero h1{
+    color:#FFF;
+    z-index: 20;
+    padding:5px;
+}
+.hero h4{
+    color:#FFF;
+    z-index: 20;
+    padding:5px;
+    color: rgba(176,191,223,1);
+}
+.hero a{
+    text-decoration: none;
+    color: rgba(10,114,179,1);
+    background-color: transparent;
+    border: 1px solid #0a72b3;
+    padding:5px;
+}
+
+
+header{
+    display: block;
+    width: 100%;
+    height: 50px;
+}
+.contenedor{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    overflow:scroll;
+}
+
+.flex-item1 {
+  background-color: transparent;
+  padding: 10px;
+  margin-top:100px;
+  margin-left: auto;
+  margin-right: auto;
+  color: rgba(176,191,223,1);
+}
+
+
+.flex-item2 {
+  background-color: transparent;
+  padding: 10px;
+  margin-top:50px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
+  color: rgba(176,191,223,1);
+}
+.flex-item2 iframe {
+  width: 600px;
+  height: 380px;
+}
+
+.texto{
+    padding:3px;
+    margin:10px;
+}
+
+#mapid { height: 380px;
+            width: 600px; }
+
+#application-canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+#application-canvas.fill-mode-NONE {
+    margin: auto;
+}
+#application-canvas.fill-mode-KEEP_ASPECT {
+    width: 100%;
+    height: auto;
+    margin: 0;
+}
+#application-canvas.fill-mode-FILL_WINDOW {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+canvas:focus {
+    outline: none;
+}
+
+
+/********************************************/
+
+@media(max-width: 576px) {
+  body {
+    background-image: url('media/space-background.jpg');
+    margin: 0;
+    height: 100%;
+    background-color: #000;
+    position: relative;
+    width: 100%;
+    -webkit-tap-highlight-color: transparent;
+    background-position: center; /* Center the image */
+    background-size: cover;
+  }
+  #mapid{
+    width: 380px;
+    height: 280px;
+  }
+
+  .flex-item1 {
+  background-color: transparent;
+  padding: 5px;
+  margin-top:70px;
+  margin-left: auto;
+  margin-right: auto;
+  color: rgba(176,191,223,1);
+  max-width: 100%;
+}
+
+
+.flex-item2 {
+  background-color: transparent;
+  padding: 5px;
+  margin-top:20px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 100px;
+  color: rgba(176,191,223,1);
+  max-width: 100%;
+}
+
+.flex-item2 iframe {
+  width: 380px;
+  height: 280px;
+}
+
+.earth-image{
+    background-image:url('media/earth-cut-phone.png');
+    position: absolute;
+    top: 0%;
+    right: 0%;
+    padding: 0px;
+    margin: 0px;
+    width: 192px;
+    height: 202px;
+    background-repeat: no-repeat;
+}
+.iss-image{
+    background-image: url('media/iss-phone.png');
+    position: absolute;
+    top:50%;
+    left:5%;
+    padding: 0px;
+    margin: 0px;
+    width: 135px;
+    height: 93px;
+    background-repeat: no-repeat;
+}
+}
+
+/*@media screen and (max-width: 768px) {
+  body {
+    background-image: url('space-background-0.jpg');
+  }
+}*/

@@ -1,0 +1,123 @@
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="description" content="restAPI testing">
+		<meta name="keywords" content="HTML, CSS, JavaScript">
+		<link rel="shortcut icon" href="media/satellite.ico" type="image/x-icon">  
+		<!-- LEAFLET LIBRARY -->
+		<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+		integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+		crossorigin=""/>
+		<link rel="stylesheet" type="text/css" href="styles.css">
+		<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+		integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+		crossorigin=""></script>
+		<meta name="author" content="Yo">
+		<title>ISS TRACKING</title>
+		<!--ISS IMAGE Source : <a title="Iss PNG" href="https://pluspng.com/iss-png-3964.html">Iss PNG</a>-->
+	</head>
+	<body>
+		
+			<div class="icon">
+		        <a href="index.html">
+		            <svg class="svg-icon" viewBox="0 0 20 20">
+		                            <path fill="none" d="M19.629,9.655c-0.021-0.589-0.088-1.165-0.21-1.723h-3.907V7.244h1.378V6.555h-2.756V5.866h2.067V5.177h-0.689V4.488h-1.378V3.799h0.689V3.11h-1.378V2.421h0.689V1.731V1.294C12.88,0.697,11.482,0.353,10,0.353c-5.212,0-9.446,4.135-9.629,9.302H19.629z M6.555,2.421c1.522,0,2.756,1.234,2.756,2.756S8.077,7.933,6.555,7.933S3.799,6.699,3.799,5.177S5.033,2.421,6.555,2.421z"></path>
+		                            <path fill="none" d="M12.067,18.958h-0.689v-0.689h2.067v-0.689h0.689V16.89h2.067v-0.689h0.689v-0.689h-1.378v-0.689h-2.067v-0.689h1.378v-0.689h2.756v-0.689h-1.378v-0.689h3.218c0.122-0.557,0.189-1.134,0.21-1.723H0.371c0.183,5.167,4.418,9.302,9.629,9.302c0.711,0,1.401-0.082,2.067-0.227V18.958z"></path>
+		            </svg>
+		        </a>    
+	    	</div>
+	 <div class="earth-image rellax" data-rellax-speed="5" data-rellax-zindex="5"></div>
+
+	 <div class="iss-image rellax" data-rellax-speed="-3" data-rellax-zindex="7"></div>
+
+    	<div class="contenedor">
+    		<div class="flex-item1 rellax" data-rellax-speed="2" data-rellax-zindex="20">
+    			
+    			<div class="texto">
+    				<h3>Where is the International Space Station?</h3><br>
+					<p id="lat"></p>
+					<p id="lon"></p>
+				</div>
+				<div id="mapid">
+				</div>
+    		</div>
+  			<div class="flex-item2 rellax" data-rellax-speed="2" data-rellax-zindex="20">
+				<div class="texto">
+					<h3>Live ISS stream</h3>
+					<p>If screen is blue, there are issues with the signal.</p><br>
+				</div>
+				<div>
+					<iframe src="https://ustream.tv/embed/9408562" scrolling="no" allowfullscreen webkitallowfullscreen frameborder="0" style="border: 0 none transparent;"></iframe>
+				</div>
+  			</div>
+    	</div><!--contenedor-->
+
+		
+			<script type="text/javascript">
+				
+
+
+	// Making and setting map latitude, longitude and zoom
+	const mymap = L.map('mapid').setView([0, 0], 1);
+	const attribution = 'Map data &copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>';
+	const tileURL = 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+	const tiles = L.tileLayer(tileURL,{attribution});
+
+	tiles.addTo(mymap);
+	//ICON
+	var myIcon = L.icon({
+		iconUrl: 'media/iss.png',
+		iconSize: [32, 24],
+		iconAnchor: [16, 12],
+	});
+	const marker = L.marker([0, 0], {icon: myIcon}).addTo(mymap);	
+
+	//API
+	const ISS_url = 'https://api.wheretheiss.at/v1/satellites/25544';
+	//first snap
+	var firstLoad = true;
+	async function getISS(){
+		const response = await fetch(ISS_url);
+				//convert response to JSON
+				const data = await response.json();
+				//take pieces from json array and put them into a variables
+				const {latitude, longitude} = data;
+				marker.setLatLng([latitude, longitude]);
+				//use if to avoid rezooming again and again
+				if (firstLoad){
+				//put the marker at the center of the map, zoom
+				mymap.setView([latitude, longitude], 2);
+				firstLoad = false
+			}
+				//toFixed(2) so we have just 2 decimals
+				document.getElementById('lat').textContent = 'latitude = ' + latitude.toFixed(2) + '°';
+				document.getElementById('lon').textContent ='longitude = ' + longitude.toFixed(2) + '°';
+				//console.log('latitude = ' + latitude);
+				//console.log('longitude = ' + longitude);
+			}
+			getISS();
+			setInterval(getISS, 1000)
+		</script>
+
+		<!--RELLAX.js-->
+		<script src="https://cdn.jsdelivr.net/gh/dixonandmoe/rellax@master/rellax.min.js"></script>
+		<script>
+  			// Accepts any class name
+  			 var rellax = new Rellax('.rellax', {
+  			 	//responsive
+    			//breakpoints: [576, 768, 1201]
+    			breakpoints: [576]
+  			});
+		</script>
+		<!-- The core Firebase JS SDK is always required and must be listed first -->
+		<script src="/__/firebase/8.6.5/firebase-app.js"></script>
+
+<!-- TODO: Add SDKs for Firebase products that you want to use
+	https://firebase.google.com/docs/web/setup#available-libraries -->
+
+	<!-- Initialize Firebase -->
+	<script src="/__/firebase/init.js"></script>
+	</body>
+	</html>
